@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stone-950 text-stone-100 min-h-screen;
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    all: unset;
+    cursor: pointer;
+  }
+}
+
+/* XP circle toggle animation */
+@layer components {
+  .xp-bubble {
+    @apply w-4 h-4 rounded-full border-2 border-stone-500 transition-all duration-150;
+  }
+  .xp-bubble.filled {
+    @apply bg-green-500 border-green-400;
+  }
+  .stamina-bubble {
+    @apply w-5 h-5 rounded-full border-2 border-stone-500 transition-all duration-150;
+  }
+  .stamina-bubble.filled {
+    @apply bg-amber-400 border-amber-300;
+  }
+}
