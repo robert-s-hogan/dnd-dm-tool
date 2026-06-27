@@ -14,7 +14,7 @@ export default function UploadArea({ onSuccess }: Props) {
   const [success, setSuccess] = useState<string | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
-  const parseAndAdd = (raw: string) => {
+  const parseAndAdd = async (raw: string) => {
     setError(null)
     setSuccess(null)
     let parsed: unknown
@@ -25,7 +25,6 @@ export default function UploadArea({ onSuccess }: Props) {
       return
     }
 
-    // Accept a single character or an array
     const items = Array.isArray(parsed) ? parsed : [parsed]
     const added: string[] = []
 
@@ -35,7 +34,7 @@ export default function UploadArea({ onSuccess }: Props) {
         return
       }
       const char = item as Omit<Character, 'id' | 'random_skills'>
-      const created = addCharacter(char)
+      const created = await addCharacter(char)
       added.push(created.name)
     }
 
