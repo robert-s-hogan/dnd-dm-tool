@@ -40,18 +40,36 @@ export interface AssignedSkill {
   trigger: SkillTrigger
 }
 
+export interface StatusEffect {
+  id: string
+  name: string
+  type: 'positive' | 'negative' | 'neutral'
+  modifiers?: {
+    ac?: number
+    temp_hp?: number
+    str?: number
+    dex?: number
+    con?: number
+    int?: number
+    wis?: number
+    cha?: number
+  }
+}
+
 export interface Character {
   id: string
   name: string
   class: string
   level: number
   background: string
+  notes?: string
   stats: CharacterStats
   armor_class: number
   hit_points: { max: number; current: number }
   stamina: { max: number; current: number }
   ability_categories: AbilityCategory[]
   random_skills: AssignedSkill[]
+  status_effects?: StatusEffect[]
   image_url?: string
 }
 
