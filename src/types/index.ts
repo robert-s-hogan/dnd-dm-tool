@@ -52,6 +52,7 @@ export interface Character {
   stamina: { max: number; current: number }
   ability_categories: AbilityCategory[]
   random_skills: AssignedSkill[]
+  image_url?: string
 }
 
 export interface Session {

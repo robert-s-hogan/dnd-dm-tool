@@ -3,6 +3,7 @@ import type { Character, RandomSkill, Ability, AbilityCategory } from '../types'
 import { useStore } from '../store/useStore'
 import { statModifier } from '../lib/dice'
 import SkillBadge from './SkillBadge'
+import CharacterSheetModal from './CharacterSheetModal'
 import randomSkillsData from '../data/random_skills.json'
 
 interface Props {
@@ -20,6 +21,7 @@ export default function CharacterCard({ character, compact = false, onRemoveFrom
   const { updateCharacter, assignRandomSkill } = useStore()
 
   const [editMode, setEditMode] = useState(false)
+  const [sheetOpen, setSheetOpen] = useState(false)
   const [addingAbilityFor, setAddingAbilityFor] = useState<number | null>(null)
   const [newAbility, setNewAbility] = useState(emptyAbility)
   const [addingCategory, setAddingCategory] = useState(false)
@@ -112,6 +114,8 @@ export default function CharacterCard({ character, compact = false, onRemoveFrom
   const hpColor = hpPct > 60 ? 'bg-green-600' : hpPct > 25 ? 'bg-amber-500' : 'bg-red-600'
 
   return (
+    <>
+    {sheetOpen && <CharacterSheetModal character={character} onClose={() => setSheetOpen(false)} />}
     <div className={`bg-stone-800 rounded-xl overflow-hidden shadow-2xl flex flex-col transition-all ${editMode ? 'border-2 border-amber-700' : 'border border-stone-700'}`}>
 
       {/* Header */}
@@ -125,6 +129,15 @@ export default function CharacterCard({ character, compact = false, onRemoveFrom
           </p>
         </div>
         <div className="flex items-center gap-2 mt-1">
+          {!compact && (
+            <button
+              onClick={() => setSheetOpen(true)}
+              className="text-xs px-2.5 py-1 rounded-lg border bg-stone-800 border-stone-600 text-stone-400 hover:text-stone-200 transition-colors"
+              title="View printable character sheet"
+            >
+              Sheet
+            </button>
+          )}
           {!compact && (
             <button
               onClick={() => { setEditMode((e) => !e); setAddingAbilityFor(null); setAddingCategory(false) }}
@@ -406,5 +419,6 @@ export default function CharacterCard({ character, compact = false, onRemoveFrom
         </div>
       )}
     </div>
+    </>
   )
 }
